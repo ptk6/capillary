@@ -1,0 +1,32 @@
+<script>
+  var wheel = document.getElementById("wheel");
+  var spinButton = document.getElementById("spinButton");
+  // Add event listener to the spin button
+  spinButton.addEventListener("click", spinWheel);
+  function spinWheel() {
+    spinButton.disabled = true; // Disable the spin button during animation
+
+    // Simulate the spinning animation
+    var spinDuration = 5000; // Duration of the spin animation in milliseconds
+    var spinStartTime = Date.now();
+
+    var spinInterval = setInterval(function () {
+      var currentTime = Date.now();
+      var elapsedTime = currentTime - spinStartTime;
+
+      // Calculate the rotation angle based on elapsed time
+      var rotationAngle = (elapsedTime / spinDuration) * 360;
+
+      // Apply rotation to the wheel element
+      wheel.style.transform = "rotate(" + rotationAngle + "deg)";
+
+      if (elapsedTime >= spinDuration) {
+        clearInterval(spinInterval);
+        spinButton.disabled = false; // Enable the spin button after animation completes
+
+        // Call a function to handle the result and reward the user
+        handleSpinResult();
+      }
+    }, 16); // Run the animation at 60 frames per second
+  }
+</script>
